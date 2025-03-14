@@ -1,0 +1,26 @@
+networks:
+    diytaskmanager-network:
+        driver: bridge
+
+volumes:
+    diytaskmanager-postgresql-data:
+        driver: local
+
+services:
+    dashboard:
+        # image: cdray527/diytaskmanager:dev
+        build:
+            context: ../
+            dockerfile: apps/frontend/dashboard/Dockerfile
+            target: development
+        container_name: diytaskmanager-dashboard
+        environment:
+            - NODE_ENV=development
+        ports:
+            - '4000:4000'
+        volumes:
+            - ../:/app
+            - /app/node_modules
+        networks:
+            - diytaskmanager-network
+        command: ['npm', 'run', 'dev:dashboard']

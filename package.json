@@ -2,7 +2,11 @@
     "name": "@diytaskmanager/source",
     "version": "0.0.0",
     "license": "MIT",
-    "scripts": {},
+    "scripts": {
+        "dev:dashboard": "nx run dashboard:dev",
+        "build:dashboard": "nx run dashboard:build",
+        "start:dashboard": "nx run dashboard:start"
+    },
     "private": true,
     "devDependencies": {
         "@eslint/compat": "^1.1.1",
