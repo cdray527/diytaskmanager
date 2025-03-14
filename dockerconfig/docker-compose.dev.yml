@@ -8,7 +8,7 @@ volumes:
 
 services:
     dashboard:
-        # image: cdray527/diytaskmanager:dev
+        image: cdray527/diytaskmanager:dev
         build:
             context: ../
             dockerfile: apps/frontend/dashboard/Dockerfile
@@ -24,3 +24,20 @@ services:
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'dev:dashboard']
+    api:
+        image: cdray527/diytaskmanager:dev
+        build:
+            context: ../
+            dockerfile: apps/backend/api/Dockerfile
+            target: development
+        container_name: diytaskmanager-api
+        environment:
+            - NODE_ENV=development
+        ports:
+            - '3000:3000'
+        volumes:
+            - ../:/app
+            - /app/node_modules
+        networks:
+            - diytaskmanager-network
+        command: ['npm', 'run', 'dev:api']
