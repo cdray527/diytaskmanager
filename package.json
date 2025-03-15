@@ -11,7 +11,8 @@
         "start:api": "nx run api:start"
     },
     "prisma": {
-        "schema": "libs/backend/db/prisma/schema.prisma"
+        "schema": "libs/backend/db/prisma/schema.prisma",
+        "seed": "ts-node libs/backend/db/prisma/seed.ts"
     },
     "private": true,
     "devDependencies": {
@@ -78,6 +79,7 @@
         "@nestjs/common": "^10.0.2",
         "@nestjs/core": "^10.0.2",
         "@nestjs/platform-express": "^10.0.2",
+        "@nestjs/swagger": "^11.0.6",
         "@prisma/client": "^6.5.0",
         "axios": "^1.6.0",
         "next": "~15.1.4",

@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-    id        String   @id @default(cuid())
+    id        String   @id @default(uuid())
     email     String   @unique
     name      String?
     password  String
@@ -23,18 +23,18 @@ model User {
 }
 
 model TaskStatus {
-    id        String   @id @default(cuid())
-    name      String
+    id        Int    @id @default(autoincrement())
+    name      String @unique
     tasks     Task[]
 }
 
 model Task {
-    id        String   @id @default(cuid())
+    id        Int    @id @default(autoincrement())
     title     String
     description String?
-    statusId  String
+    statusId  Int   @default(1)
     status    TaskStatus @relation(fields: [statusId], references: [id])
-    UserId    String
-    createdBy   User @relation(fields: [UserId], references: [id])
+    userId    String
+    createdBy   User @relation(fields: [userId], references: [id])
     createdAt DateTime @default(now())
 }
