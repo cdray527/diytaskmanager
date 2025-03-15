@@ -6,7 +6,7 @@
         "dev:dashboard": "nx run dashboard:dev",
         "build:dashboard": "nx run dashboard:build",
         "start:dashboard": "nx run dashboard:start",
-        "dev:api": "nx run api:dev",
+        "dev:api": "nx run api:serve",
         "build:api": "nx run api:build",
         "start:api": "nx run api:start"
     },

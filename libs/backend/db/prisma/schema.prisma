@@ -6,11 +6,12 @@
 
 generator client {
     provider = "prisma-client-js"
+    output = "generated/prisma_client"
 }
 
 datasource db {
     provider = "postgresql"
-    url      = env("DATABASE_URL")
+    url      = "postgresql://diytaskmanagerdev:diytaskmanagerdevpw@postgresql:5432/diytaskmanager-db"
 }
 
 model User {
