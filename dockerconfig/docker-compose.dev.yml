@@ -9,7 +9,7 @@ volumes:
     #     driver: local
 
 services:
-    diytaskmanager-dashboard:
+    dashboard:
         image: cdray527/diytaskmanager:dev
         build:
             context: ../
@@ -17,7 +17,7 @@ services:
             target: development
         container_name: diytaskmanager-dashboard
         depends_on:
-            - diytaskmanager-api
+            - api
         environment:
             - NODE_ENV=development
         ports:
@@ -28,7 +28,7 @@ services:
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'dev:dashboard']
-    diytaskmanager-api:
+    api:
         image: cdray527/diytaskmanager:dev
         build:
             context: ../
@@ -36,7 +36,7 @@ services:
             target: development
         container_name: diytaskmanager-api
         depends_on:
-            diytaskmanager-postgresql:
+            postgresql:
                 condition: service_healthy
         environment:
             - NODE_ENV=development
@@ -50,7 +50,7 @@ services:
         networks:
             - diytaskmanager-network
         command: ['sh', '-c', 'npx prisma generate && npm run dev:api']
-    diytaskmanager-postgresql:
+    postgresql:
         image: postgres:16
         container_name: diytaskmanager-postgresql
         environment:

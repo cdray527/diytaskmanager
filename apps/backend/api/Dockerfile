@@ -27,8 +27,10 @@ FROM node:22-alpine AS production
 WORKDIR /app
 COPY --from=build /app/apps/backend/api/package.json ./
 COPY --from=build /app/apps/backend/api/dist ./dist
+COPY --from=build /app/libs/backend/db/prisma ./prisma
+
+RUN npm install --production --force
 
 RUN npx prisma generate
 
-RUN npm install --production --force
 EXPOSE 3000
