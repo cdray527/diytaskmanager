@@ -14,6 +14,8 @@ services:
             dockerfile: apps/frontend/dashboard/Dockerfile
             target: development
         container_name: diytaskmanager-dashboard
+        depends_on:
+            - api
         environment:
             - NODE_ENV=development
         ports:
@@ -31,13 +33,35 @@ services:
             dockerfile: apps/backend/api/Dockerfile
             target: development
         container_name: diytaskmanager-api
+        depends_on:
+            - postgresql
         environment:
             - NODE_ENV=development
+            - DATABASE_URL=postgresql://diytaskmanagerdev:diytaskmanagerdevpw@postgresql:5432/diytaskmanager-db
         ports:
             - '3000:3000'
+            - '5555:5555'
         volumes:
             - ../:/app
             - /app/node_modules
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'dev:api']
+    postgresql:
+        image: postgres
+        container_name: diytaskmanager-postgresql
+        environment:
+            - POSTGRES_USER=diytaskmanagerdev
+            - POSTGRES_PASSWORD=diytaskmanagerdevpw
+            - POSTGRES_DB=diytaskmanager-db
+        ports:
+            - '5432:5432'
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        volumes:
+            - diytaskmanager-postgresql-data:/var/lib/postgresql/data/
+        networks:
+            - diytaskmanager-network
