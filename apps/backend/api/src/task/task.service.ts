@@ -29,12 +29,23 @@ export class TaskService {
         });
     }
 
-    async createTask(data: Prisma.TaskCreateInput, userId: Prisma.UserCreateInput): Promise<Task> {
+    async createTask(title: string, description: string): Promise<Task> {
+        const hardcodedUser = await this.prisma.user.findUnique({
+            where: { email: 'cdray085@hotmail.com' },
+            select: { id: true }
+        });
+
+        if (!hardcodedUser) {
+            throw new Error('Hardcoded user not found');
+        }
+
         return this.prisma.task.create({
             data: {
-                ...data,
+                title,
+                description,
+                status: { connect: { id: 1 } },
                 createdBy: {
-                    connect: { id: userId.id }
+                    connect: { id: hardcodedUser.id }
                 }
             }
         });

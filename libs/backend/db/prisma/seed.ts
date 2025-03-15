@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -18,14 +19,38 @@ async function taskStatusSeed() {
             }
         });
     }
+
+    console.log('TaskStatus Table seeded');
 }
 
-taskStatusSeed()
-    .then(async () => {
-        await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-        console.error(e);
-        await prisma.$disconnect();
+// Seed Hardcoded User
+async function userSeed() {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash('SecurePassword123', saltRounds);
+
+    await prisma.user.upsert({
+        where: { email: 'cdray085@hotmail.com' },
+        update: {},
+        create: {
+            email: 'cdray085@hotmail.com',
+            name: 'Ray',
+            password: hashedPassword
+        }
+    });
+
+    console.log('User Table seeded');
+}
+
+async function main() {
+    await taskStatusSeed();
+    await userSeed();
+}
+
+main()
+    .catch((e) => {
+        console.error('Seeding Error:', e);
         process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
     });

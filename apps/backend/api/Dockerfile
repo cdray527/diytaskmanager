@@ -4,7 +4,7 @@ FROM node:22-alpine AS development
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 COPY . .
 
@@ -28,5 +28,7 @@ WORKDIR /app
 COPY --from=build /app/apps/backend/api/package.json ./
 COPY --from=build /app/apps/backend/api/dist ./dist
 
-RUN npm install --production --legacy-peer-deps
+RUN npx prisma generate
+
+RUN npm install --production --force
 EXPOSE 3000

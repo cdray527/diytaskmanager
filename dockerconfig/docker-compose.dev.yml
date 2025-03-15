@@ -5,8 +5,8 @@ networks:
 volumes:
     diytaskmanager-postgresql-data:
         driver: local
-    diytaskmanager-node-modules:
-        driver: local
+    # diytaskmanager-node-modules:
+    #     driver: local
 
 services:
     diytaskmanager-dashboard:
@@ -23,8 +23,8 @@ services:
         ports:
             - '4000:4000'
         volumes:
-            - ../apps/frontend/dashboard:/app/apps/frontend/dashboard
-            - diytaskmanager-node-modules:/app/node_modules
+            - ../:/app
+            - /app/node_modules
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'dev:dashboard']
@@ -45,8 +45,8 @@ services:
             - '3000:3000'
             - '5555:5555'
         volumes:
-            - ../apps/backend/api:/app/apps/backend/api
-            - diytaskmanager-node-modules:/app/node_modules
+            - ../:/app
+            - /app/node_modules
         networks:
             - diytaskmanager-network
         command: ['sh', '-c', 'npx prisma generate && npm run dev:api']
@@ -61,9 +61,9 @@ services:
             - '5432:5432'
         healthcheck:
             test: ['CMD-SHELL', 'pg_isready -U diytaskmanagerdev']
-            interval: 10s
-            timeout: 5s
-            retries: 5
+            interval: 5s
+            timeout: 2s
+            retries: 20
         volumes:
             - diytaskmanager-postgresql-data:/var/lib/postgresql/data/
         networks:
