@@ -23,6 +23,9 @@
         },
         {
             "path": "./libs/frontend/services"
+        },
+        {
+            "path": "./apps/frontend/dashboard-e2e"
         }
     ]
 }

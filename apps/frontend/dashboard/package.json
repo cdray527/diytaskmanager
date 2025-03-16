@@ -1,8 +1,5 @@
 {
     "name": "@diytaskmanager/dashboard",
-    "nx": {
-        "type": "app"
-    },
     "version": "0.0.1",
     "private": true,
     "scripts": {
@@ -13,6 +10,7 @@
     "dependencies": {
         "next": "~15.1.4",
         "react": "19.0.0",
-        "react-dom": "19.0.0"
+        "react-dom": "19.0.0",
+        "axios": "^1.6.0"
     }
 }

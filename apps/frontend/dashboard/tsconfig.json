@@ -26,16 +26,7 @@
         "rootDir": "src",
         "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
     },
-    "include": [
-        "../../../apps/frontend/dashboard/.next/types/**/*.ts",
-        "../../../dist/apps/frontend/dashboard/.next/types/**/*.ts",
-        "next-env.d.ts",
-        "src/**/*.js",
-        "src/**/*.jsx",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        ".next/types/**/*.ts"
-    ],
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx", "next-env.d.ts"],
     "exclude": [
         "out-tsc",
         "dist",
@@ -47,10 +38,5 @@
         "eslint.config.js",
         "eslint.config.cjs",
         "eslint.config.mjs"
-    ],
-    "references": [
-        {
-            "path": "../../../libs/frontend/services"
-        }
     ]
 }
