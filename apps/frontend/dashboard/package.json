@@ -12,6 +12,7 @@
         "react": "19.0.0",
         "react-dom": "19.0.0",
         "axios": "^1.6.0",
-        "classnames": "^2.5.1"
+        "classnames": "^2.5.1",
+        "daisyui": "^5.0.4"
     }
 }
