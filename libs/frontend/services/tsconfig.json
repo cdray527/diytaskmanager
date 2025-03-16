@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "allowJs": false,
+        "esModuleInterop": false,
+        "allowSyntheticDefaultImports": true,
+        "allowImportingTsExtensions": true,
+        "strict": true
+    },
+    "files": [],
+    "include": ["src/*.js", "src/*.jsx", "src/*.ts", "src/*.tsx"],
+    "references": [
+        {
+            "path": "./tsconfig.lib.json"
+        }
+    ],
+    "extends": "../../../tsconfig.base.json"
+}

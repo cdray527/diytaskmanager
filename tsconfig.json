@@ -17,6 +17,12 @@
         },
         {
             "path": "./libs/backend/db"
+        },
+        {
+            "path": "./libs/frontend/ui"
+        },
+        {
+            "path": "./libs/frontend/services"
         }
     ]
 }

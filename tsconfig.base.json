@@ -15,6 +15,11 @@
         "noUnusedLocals": true,
         "skipLibCheck": true,
         "strict": true,
-        "target": "es2022"
+        "target": "es2022",
+        "baseUrl": ".",
+        "paths": {
+            "@diytaskmanager/libs-frontend-services/*": ["libs/frontend/services/src/*"],
+            "@diytaskmanager/libs-frontend-ui/*": ["libs/frontend/ui/src/*"]
+        }
     }
 }

@@ -20,6 +20,7 @@ services:
             - api
         environment:
             - NODE_ENV=development
+            - API_URL=http://diytaskmanager-api:3000
         ports:
             - '4000:4000'
         volumes:

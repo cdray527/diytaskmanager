@@ -11,6 +11,11 @@ import { AppModule } from './app.module';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
+    app.enableCors({
+        origin: '*',
+        credentials: true
+    });
+
     const config = new DocumentBuilder()
         .setTitle('DIYTASKMANAGER API')
         .setDescription('API for DIYTASKMANAGER')

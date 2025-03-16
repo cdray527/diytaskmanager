@@ -1,5 +1,8 @@
 {
     "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "sync": {
+        "applyChanges": true
+    },
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],
         "production": [
@@ -31,7 +34,7 @@
                     "watchDepsName": "watch-deps"
                 }
             },
-            "exclude": ["libs/backend/db/*"]
+            "exclude": ["libs/backend/db/*", "libs/frontend/ui-lib/*", "libs/frontend/services/*"]
         },
         {
             "plugin": "@nx/next/plugin",
@@ -78,7 +81,7 @@
         },
         {
             "plugin": "@nx/js/typescript",
-            "include": ["libs/backend/db/*"],
+            "include": ["libs/backend/db/*", "libs/frontend/ui-lib/*", "libs/frontend/services/*"],
             "options": {
                 "typecheck": {
                     "targetName": "typecheck"
