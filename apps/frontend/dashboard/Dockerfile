@@ -4,9 +4,16 @@ FROM node:22-alpine AS development
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install --force
+RUN npm install --force --only=development 
 
 COPY . .
+
+RUN npm install
+
+EXPOSE 4000
+
+# # Install all dependencies
+# RUN npx nx run-many --target=install --all
 
 # ---- Stage 2: Build ----
 FROM node:22-alpine AS build

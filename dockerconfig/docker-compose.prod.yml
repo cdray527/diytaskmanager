@@ -7,7 +7,7 @@ volumes:
         driver: local
 
 services:
-    dashboard:
+    diytaskmanager-dashboard:
         restart: always
         image: cdray527/diytaskmanager-dashboard:latest
         build:
@@ -16,17 +16,18 @@ services:
             target: production
         container_name: diytaskmanager-dashboard
         depends_on:
-            - api
+            - diytaskmanager-api
         env_file:
             - ../.env
         environment:
             - NODE_ENV=production
+            - API_URL=${API_URL}
         ports:
             - '4000:4000'
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'start']
-    api:
+    diytaskmanager-api:
         restart: always
         image: cdray527/diytaskmanager-api:latest
         build:
@@ -35,7 +36,7 @@ services:
             target: production
         container_name: diytaskmanager-api
         depends_on:
-            - postgresql
+            - diytaskmanager-postgresql
         env_file:
             - ../.env
         environment:
@@ -45,12 +46,14 @@ services:
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'start']
-    postgresql:
+    diytaskmanager-postgresql:
         restart: always
         image: postgres:16
         container_name: diytaskmanager-postgresql
         ports:
             - '5432:5432'
+        env_file:
+            - ../.env
         healthcheck:
             test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER}']
             interval: 5s

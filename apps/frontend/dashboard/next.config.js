@@ -9,7 +9,8 @@ const { composePlugins, withNx } = require('@nx/next');
 const nextConfig = {
     reactStrictMode: true,
     env: {
-        API_URL: process.env.API_URL
+        NEXT_PRIVATE_API_URL: process.env.NEXT_PRIVATE_API_URL,
+        NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL
     },
     nx: {
         // Set this to true if you would like to use SVGR

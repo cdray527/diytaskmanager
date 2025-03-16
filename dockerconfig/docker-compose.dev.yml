@@ -5,11 +5,11 @@ networks:
 volumes:
     diytaskmanager-postgresql-data:
         driver: local
-    # diytaskmanager-node-modules:
-    #     driver: local
+    diytaskmanager-node-modules:
+        driver: local
 
 services:
-    dashboard:
+    diytaskmanager-dashboard:
         image: cdray527/diytaskmanager:dev
         build:
             context: ../
@@ -17,7 +17,7 @@ services:
             target: development
         container_name: diytaskmanager-dashboard
         depends_on:
-            - api
+            - diytaskmanager-api
         environment:
             - NODE_ENV=development
             - API_URL=http://diytaskmanager-api:3000
@@ -25,11 +25,11 @@ services:
             - '4000:4000'
         volumes:
             - ../:/app
-            - /app/node_modules
+            - diytaskmanager-node-modules:/app/node_modules
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'dev:dashboard']
-    api:
+    diytaskmanager-api:
         image: cdray527/diytaskmanager:dev
         build:
             context: ../
@@ -37,7 +37,7 @@ services:
             target: development
         container_name: diytaskmanager-api
         depends_on:
-            postgresql:
+            diytaskmanager-postgresql:
                 condition: service_healthy
         environment:
             - NODE_ENV=development
@@ -47,11 +47,11 @@ services:
             - '5555:5555'
         volumes:
             - ../:/app
-            - /app/node_modules
+            - diytaskmanager-node-modules:/app/node_modules
         networks:
             - diytaskmanager-network
         command: ['sh', '-c', 'npx prisma generate && npm run dev:api']
-    postgresql:
+    diytaskmanager-postgresql:
         image: postgres:16
         container_name: diytaskmanager-postgresql
         environment:

@@ -10,6 +10,7 @@
         "moduleResolution": "nodenext",
         "noEmitOnError": true,
         "noFallthroughCasesInSwitch": true,
+        "allowImportingTsExtensions": true,
         "noImplicitOverride": true,
         "noImplicitReturns": true,
         "noUnusedLocals": true,
