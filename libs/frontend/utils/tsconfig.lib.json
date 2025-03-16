@@ -4,6 +4,7 @@
         "outDir": "dist",
         "types": ["node", "@nx/react/typings/cssmodule.d.ts", "@nx/react/typings/image.d.ts"],
         "rootDir": "src",
+        "lib": ["dom"],
         "jsx": "react-jsx",
         "module": "esnext",
         "moduleResolution": "bundler",

@@ -1,10 +1,10 @@
-import axios from 'axios';
+import { createAxiosClient } from '@diytaskmanager/libs-frontend-utils';
 
 async function fetchTasks() {
-    const apiBaseUrl = process.env.NEXT_PRIVATE_API_URL || process.env.NEXT_PUBLIC_API_URL;
+    const axiosClient = createAxiosClient('task');
 
     try {
-        const response = await axios.get(`${apiBaseUrl}/task`);
+        const response = await axiosClient.get('/task');
         return response.data;
     } catch (error) {
         console.error('Failed to fetch tasks:', error);

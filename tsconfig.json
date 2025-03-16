@@ -26,6 +26,9 @@
         },
         {
             "path": "./apps/frontend/dashboard-e2e"
+        },
+        {
+            "path": "./libs/frontend/utils"
         }
     ]
 }

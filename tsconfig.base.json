@@ -20,7 +20,8 @@
         "baseUrl": ".",
         "paths": {
             "@diytaskmanager/libs-frontend-services/*": ["libs/frontend/services/src/*"],
-            "@diytaskmanager/libs-frontend-ui/*": ["libs/frontend/ui/src/*"]
+            "@diytaskmanager/libs-frontend-ui/*": ["libs/frontend/ui/src/*"],
+            "@diytaskmanager/libs-frontend-utils/*": ["libs/frontend/utils/src/*"]
         }
     }
 }
