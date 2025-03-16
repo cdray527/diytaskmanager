@@ -6,7 +6,7 @@ import { updateTask } from '@diytaskmanager/libs-frontend-services';
 import cn from 'classnames';
 
 interface TaskItemProps extends ITask {
-    onClickDeleteButton: () => void;
+    onClickDeleteButton: (id: number) => void;
 }
 
 function TaskItem({
@@ -90,7 +90,7 @@ function TaskItem({
                     <button
                         onClick={(e) => {
                             e.stopPropagation();
-                            onClickDeleteButton();
+                            onClickDeleteButton(id);
                         }}
                         className="text-red-500 hover:text-red-700"
                         aria-label="Delete Task"

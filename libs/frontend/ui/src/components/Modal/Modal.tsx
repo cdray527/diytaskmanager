@@ -6,13 +6,13 @@ interface ModalProps {
     children: React.ReactNode;
     defaultIsOpen?: boolean;
     showCloseButton?: boolean;
+    onClickCloseButton?: () => void;
 }
 
-function Modal({ id, children, defaultIsOpen, showCloseButton }: ModalProps) {
+function Modal({ id, children, defaultIsOpen, showCloseButton, onClickCloseButton }: ModalProps) {
     const [isOpen, setIsOpen] = useState(defaultIsOpen);
 
     useEffect(() => {
-        console.log(defaultIsOpen);
         if (defaultIsOpen) {
             setIsOpen(defaultIsOpen);
         }
@@ -22,15 +22,19 @@ function Modal({ id, children, defaultIsOpen, showCloseButton }: ModalProps) {
         <dialog
             id={id}
             className={cn('modal', {
-                hidden: !isOpen
+                'bg-white bg-opacity-50 visible pointer-events-auto': isOpen
             })}
         >
-            <div className="modal-box">
+            <div
+                className={cn('modal-box', {
+                    'opacity-100': isOpen
+                })}
+            >
                 {showCloseButton && (
                     <form method="dialog">
                         <button
                             className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                            onClick={() => setIsOpen(false)}
+                            onClick={onClickCloseButton}
                         >
                             ✕
                         </button>
