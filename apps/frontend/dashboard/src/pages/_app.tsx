@@ -1,7 +1,8 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { GlobalLayout } from '@diytaskmanager/libs-frontend-ui';
+import { GlobalLayout, GlobalProvider } from '@diytaskmanager/libs-frontend-ui';
 import './styles.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function DashboardApp({ Component, pageProps }: AppProps) {
     return (
@@ -10,9 +11,11 @@ function DashboardApp({ Component, pageProps }: AppProps) {
                 <title>Welcome to dashboard!</title>
             </Head>
             <main className="app">
-                <GlobalLayout>
-                    <Component {...pageProps} />
-                </GlobalLayout>
+                <GlobalProvider>
+                    <GlobalLayout>
+                        <Component {...pageProps} />
+                    </GlobalLayout>
+                </GlobalProvider>
             </main>
         </>
     );
