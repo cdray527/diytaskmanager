@@ -19,7 +19,12 @@ export class TaskService {
             take,
             cursor,
             where,
-            orderBy
+            orderBy,
+            include: {
+                status: {
+                    select: { name: true }
+                }
+            }
         });
     }
 

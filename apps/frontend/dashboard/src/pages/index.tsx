@@ -1,14 +1,7 @@
 import { GetServerSideProps } from 'next';
 import { fetchTasks } from '@diytaskmanager/libs-frontend-services';
-
-interface Task {
-    id: string;
-    title: string;
-}
-
-interface TasksProps {
-    tasks: Task[];
-}
+import TaskList from '../components/TaskList';
+import { ITasks } from '@diytaskmanager/libs-frontend-utils';
 
 export const getServerSideProps: GetServerSideProps = async () => {
     try {
@@ -20,15 +13,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
 };
 
-export function Index({ tasks }: TasksProps) {
+export function Index({ tasks = [] }: ITasks) {
     return (
         <div>
             <h1>Dashboard</h1>
-            <ul>
-                {tasks.map((task) => (
-                    <li key={task.id}>{task.title}</li>
-                ))}
-            </ul>
+            <TaskList tasks={tasks} />
         </div>
     );
 }

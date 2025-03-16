@@ -42,6 +42,12 @@
     "references": [
         {
             "path": "../../../libs/frontend/services"
+        },
+        {
+            "path": "../../../libs/frontend/ui"
+        },
+        {
+            "path": "../../../libs/frontend/utils"
         }
     ]
 }

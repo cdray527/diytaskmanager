@@ -8,10 +8,10 @@ function Sidebar() {
     const { isSidebarOpen, toggleSidebar } = useGlobalContext();
 
     return (
-        <aside
-            className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 text-white transform ${
-                isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-            } transition-transform duration-300 ease-in-out md:relative md:translate-x-0`}
+        <div
+            className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 text-white transform
+                transition-transform duration-300 ease-in-out md:relative md:translate-x-0
+                ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
             <div className="p-4 flex justify-between items-center">
                 <Avatar initials="RS" name="Ray Siew" />
@@ -37,7 +37,7 @@ function Sidebar() {
                     </li>
                 </ul>
             </nav>
-        </aside>
+        </div>
     );
 }
 
