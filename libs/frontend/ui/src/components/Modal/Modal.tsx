@@ -22,7 +22,7 @@ function Modal({ id, children, defaultIsOpen, showCloseButton, onClickCloseButto
         <dialog
             id={id}
             className={cn('modal', {
-                'bg-white bg-opacity-50 visible pointer-events-auto': isOpen
+                'bg-slate-950 bg-opacity-50 visible pointer-events-auto': isOpen
             })}
         >
             <div

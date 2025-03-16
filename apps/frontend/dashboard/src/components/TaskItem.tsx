@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ITask } from '@diytaskmanager/libs-frontend-utils';
 import { updateTask } from '@diytaskmanager/libs-frontend-services';
+import { useOutsideClick } from '@diytaskmanager/libs-frontend-utils';
 import cn from 'classnames';
 
 interface TaskItemProps extends ITask {
@@ -21,8 +22,14 @@ function TaskItem({
 
     const [currentTitle, setCurrentTitle] = useState(title);
     const [currentDescription, setCurrentDescription] = useState(description || '');
+    const [currentStatus, setCurrentStatus] = useState({ id: statusId, name: status.name });
+
     const [isEditingTitle, setIsEditingTitle] = useState(false);
     const [isEditingDescription, setIsEditingDescription] = useState(false);
+    const [showStatusDropdown, setShowStatusDropdown] = useState(false);
+
+    const statusDropdownRef = useRef(null);
+    useOutsideClick(statusDropdownRef, () => setShowStatusDropdown(false));
 
     const handleTitleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentTitle(e.target.value);
@@ -36,14 +43,22 @@ function TaskItem({
         if (e.key === 'Enter') editCallBack(false);
     };
 
+    const handleStatusChange = async (newStatusId: number, newStatusName: string) => {
+        const updateTaskRes = await updateTask(id, { statusId: newStatusId });
+        if (updateTaskRes) {
+            setCurrentStatus({ id: newStatusId, name: newStatusName });
+            setShowStatusDropdown(false);
+        }
+    };
+
     return (
         <div
             className="bg-white text-black border border-gray-300 rounded-md p-3 shadow-md"
             // onClick={() => setIsExpanded(!isExpanded)}
         >
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col flex-wrap sm:flex-row justify-start sm:justify-between items-center">
                 {/* Left side */}
-                <div className="flex items-center gap-2">
+                <div className="inline-block sm:flex items-center gap-2 w-full sm:w-auto overflow-hidden text-ellipsis ">
                     {isEditingTitle ? (
                         <input
                             type="text"
@@ -73,20 +88,50 @@ function TaskItem({
                         </span>
                     )}
                 </div>
-                {/* Right side */}
-                <div className="flex items-center gap-2">
-                    <span
-                        className={cn(
-                            'flex items-center h-6 px-4 rounded-xl text-sm font-semibold',
-                            {
-                                'bg-green-600 text-white': statusId === 2,
-                                'bg-yellow-600 text-white': statusId === 1
-                            }
-                        )}
-                    >
-                        {status.name}
-                    </span>
+                {/* Right side - Status & Delete button */}
+                <div className="flex items-center gap-2 relative w-full sm:w-auto mt-2 sm:mt-0">
+                    {/* Status Dropdown */}
+                    <div className="relative">
+                        <span
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setShowStatusDropdown(!showStatusDropdown);
+                            }}
+                            className={cn(
+                                'flex items-center h-6 px-4 rounded-xl text-sm font-semibold cursor-pointer',
+                                {
+                                    'bg-green-600 text-white': currentStatus.id === 2,
+                                    'bg-yellow-600 text-white': currentStatus.id === 1
+                                }
+                            )}
+                        >
+                            {currentStatus.name}
+                        </span>
 
+                        {showStatusDropdown && (
+                            <div
+                                ref={statusDropdownRef}
+                                className="absolute right-0 mt-2 w-36 bg-white border-2 border-gray-700 border-line rounded-md shadow-lg z-50 min-w-max"
+                                style={{ top: '100%' }}
+                                onBlur={() => setShowStatusDropdown(false)}
+                            >
+                                <button
+                                    onClick={() => handleStatusChange(1, 'To Do')}
+                                    className="block w-full text-left px-4 py-2 hover:bg-gray-200 text-gray-800"
+                                >
+                                    To Do
+                                </button>
+                                <button
+                                    onClick={() => handleStatusChange(2, 'Completed')}
+                                    className="block w-full text-left px-4 py-2 hover:bg-gray-200 text-gray-800"
+                                >
+                                    Completed
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Delete Button */}
                     <button
                         onClick={(e) => {
                             e.stopPropagation();
@@ -99,6 +144,7 @@ function TaskItem({
                     </button>
                 </div>
             </div>
+
             {/* {isExpanded && ( */}
             <div className="mt-2 p-2 bg-gray-100 rounded relative">
                 {isEditingDescription ? (
@@ -118,7 +164,7 @@ function TaskItem({
                         className="border bg-gray-100 border-gray-400 px-2 py-1 rounded w-full"
                     />
                 ) : (
-                    <p className="text-gray-700 text-sm">{currentDescription}</p>
+                    <p className="text-gray-700 text-sm min-h-4">{currentDescription}</p>
                 )}
                 <button
                     onClick={(e) => {

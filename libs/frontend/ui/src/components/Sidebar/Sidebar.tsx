@@ -26,12 +26,12 @@ function Sidebar() {
             <nav className="p-4">
                 <ul className="space-y-4">
                     <li>
-                        <a href="#" className="block p-2 hover:bg-gray-700 rounded">
+                        <a href="/" className="block p-2 hover:bg-gray-700 rounded">
                             <i className="fas fa-tasks mr-2"></i> Tasks
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="block p-2 hover:bg-gray-700 rounded">
+                        <a href="/settings" className="block p-2 hover:bg-gray-700 rounded">
                             <i className="fas fa-cog mr-2"></i> Settings
                         </a>
                     </li>

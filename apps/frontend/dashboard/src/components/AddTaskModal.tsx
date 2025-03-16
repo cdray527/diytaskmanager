@@ -34,9 +34,9 @@ function AddTaskModal({ isOpen, onClose, onCreateTask }: AddTaskModalProps) {
 
     return (
         <Modal id="add-task-modal" defaultIsOpen={isOpen}>
-            <h3 className="font-bold text-lg">Add New Task</h3>
+            <h3 className="font-bold text-xl">Add New Task</h3>
             <form ref={formRef} onSubmit={handleSubmit} className="py-4">
-                <label className="block text-sm text-white font-medium text-gray-700">
+                <label className="block text-md text-white font-medium text-gray-700">
                     Task Title
                 </label>
                 <input
@@ -47,17 +47,16 @@ function AddTaskModal({ isOpen, onClose, onCreateTask }: AddTaskModalProps) {
                     placeholder="Enter task title"
                 />
 
-                <label className="block mt-4 text-sm text-white font-medium text-gray-700">
+                <label className="block mt-4 text-md text-white font-medium text-gray-700">
                     Description
                 </label>
                 <textarea
                     name="description"
-                    required
                     className="w-full p-2 mt-1 border border-gray-300 rounded"
                     placeholder="Enter task description"
                 />
 
-                <label className="block mt-4 text-sm text-white font-medium text-gray-700">
+                <label className="block mt-4 text-md text-white font-medium text-gray-700">
                     Status
                 </label>
                 <select name="statusId" className="w-full p-2 mt-1 border border-gray-300 rounded">
@@ -69,7 +68,7 @@ function AddTaskModal({ isOpen, onClose, onCreateTask }: AddTaskModalProps) {
                     <button type="submit" className="btn btn-primary">
                         Add Task
                     </button>
-                    <button type="button" className="btn" onClick={onClose}>
+                    <button type="button" className="btn btn-soft" onClick={onClose}>
                         Cancel
                     </button>
                 </div>

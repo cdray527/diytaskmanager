@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     }
 };
 
-export function Index({ tasks = [] }: ITasks) {
+export function IndexPage({ tasks = [] }: ITasks) {
     return (
         <div>
             <TaskList tasks={tasks} />
@@ -21,4 +21,4 @@ export function Index({ tasks = [] }: ITasks) {
     );
 }
 
-export default Index;
+export default IndexPage;

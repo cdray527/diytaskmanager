@@ -5,7 +5,7 @@ function Header() {
     const { toggleSidebar } = useGlobalContext();
 
     return (
-        <header className="w-full bg-gray-800 text-white p-4 shadow-md">
+        <header className="w-full bg-gray-950 text-white p-4 shadow-md">
             <div className="container flex items-center justify-between">
                 <div className="flex items-center gap-4">
                     <button
@@ -17,7 +17,7 @@ function Header() {
                     </button>
 
                     <h1 className="text-xl font-semibold text-left">
-                        <a href="#" className="link link-hover">
+                        <a href="/" className="link link-hover">
                             DIY TASK MANAGER
                         </a>
                     </h1>
@@ -26,9 +26,7 @@ function Header() {
                 <nav>
                     <ul className="flex gap-4">
                         <li>
-                            <a href="#" className="link">
-                                About
-                            </a>
+                            <a className="link">About</a>
                         </li>
                     </ul>
                 </nav>

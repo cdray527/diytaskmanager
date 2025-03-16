@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import TaskItem from './TaskItem';
 import AddTaskModal from './AddTaskModal';
+import DeleteTaskModal from './DeleteTaskModal';
 import { ITasks } from '@diytaskmanager/libs-frontend-utils';
-import { Modal } from '@diytaskmanager/libs-frontend-ui';
 import { createTask, deleteTask } from '@diytaskmanager/libs-frontend-services';
 
 function TaskList({ tasks = [] }: ITasks) {
@@ -56,7 +56,8 @@ function TaskList({ tasks = [] }: ITasks) {
             <div className="flex justify-between items-center mb-4">
                 <h1 className="font-semibold text-2xl">Task Dashboard</h1>
                 <button className="btn btn-primary" onClick={openAddTaskModal}>
-                    + Add Task
+                    <span>+</span>
+                    <span className="hidden sm:block">Add Task</span>
                 </button>
             </div>
 
@@ -75,23 +76,11 @@ function TaskList({ tasks = [] }: ITasks) {
             </div>
 
             {isDeleteModalOpen && (
-                <Modal
-                    id="delete-modal"
-                    defaultIsOpen={isDeleteModalOpen}
-                    showCloseButton
-                    onClickCloseButton={closeDeleteModal}
-                >
-                    <h3 className="font-bold text-lg">Delete Task</h3>
-                    <p className="py-4">Are you sure you want to delete this task?</p>
-                    <div className="flex gap-4">
-                        <button className="btn btn-error" onClick={handleConfirmDelete}>
-                            Confirm Delete
-                        </button>
-                        <button className="btn" onClick={closeDeleteModal}>
-                            Cancel
-                        </button>
-                    </div>
-                </Modal>
+                <DeleteTaskModal
+                    isOpen={isDeleteModalOpen}
+                    onClose={closeDeleteModal}
+                    onConfirmDelete={handleConfirmDelete}
+                />
             )}
 
             {isAddTaskModalOpen && (
