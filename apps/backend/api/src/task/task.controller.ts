@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, Query } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 import { Task, Prisma } from '@prisma/client';
@@ -11,8 +11,9 @@ export class TaskController {
     @Get()
     @ApiOperation({ summary: 'Get all tasks' })
     @ApiResponse({ status: 200, description: 'Return all tasks' })
-    async getTasks(): Promise<Task[]> {
-        return this.taskService.getTasks({});
+    async getTasks(@Query('orderBy') orderBy?: string): Promise<Task[]> {
+        const order = { [orderBy || 'id']: 'asc' };
+        return this.taskService.getTasks({ orderBy: order });
     }
 
     @Get(':id')

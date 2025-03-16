@@ -2,13 +2,21 @@
 
 import { useState } from 'react';
 import { ITask } from '@diytaskmanager/libs-frontend-utils';
+import { updateTask } from '@diytaskmanager/libs-frontend-services';
 import cn from 'classnames';
 
 interface TaskItemProps extends ITask {
     onClickDeleteButton: () => void;
 }
 
-function TaskItem({ title, status, statusId, description, onClickDeleteButton }: TaskItemProps) {
+function TaskItem({
+    id,
+    title,
+    status,
+    statusId,
+    description,
+    onClickDeleteButton
+}: TaskItemProps) {
     // const [isExpanded, setIsExpanded] = useState(false);
 
     const [currentTitle, setCurrentTitle] = useState(title);
@@ -16,13 +24,11 @@ function TaskItem({ title, status, statusId, description, onClickDeleteButton }:
     const [isEditingTitle, setIsEditingTitle] = useState(false);
     const [isEditingDescription, setIsEditingDescription] = useState(false);
 
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('Editing title', e.target.value);
+    const handleTitleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentTitle(e.target.value);
     };
 
-    const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        console.log('Editing title', e.target.value);
+    const handleDescriptionChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setCurrentDescription(e.target.value);
     };
 
@@ -43,7 +49,14 @@ function TaskItem({ title, status, statusId, description, onClickDeleteButton }:
                             type="text"
                             value={currentTitle}
                             onChange={handleTitleChange}
-                            onKeyDown={(e) => handleKeyDown(e, setIsEditingTitle)}
+                            onKeyDown={(e) =>
+                                handleKeyDown(e, async () => {
+                                    const updateTaskRes = await updateTask(id, {
+                                        title: currentTitle
+                                    });
+                                    if (updateTaskRes) setIsEditingTitle(false);
+                                })
+                            }
                             onBlur={() => setIsEditingTitle(false)}
                             autoFocus
                             className="border border-gray-400 px-2 py-1 bg-white rounded w-full"
@@ -93,7 +106,14 @@ function TaskItem({ title, status, statusId, description, onClickDeleteButton }:
                         value={currentDescription}
                         onChange={handleDescriptionChange}
                         onBlur={() => setIsEditingDescription(false)}
-                        onKeyDown={(e) => handleKeyDown(e, setIsEditingDescription)}
+                        onKeyDown={(e) =>
+                            handleKeyDown(e, async () => {
+                                const updateTaskRes = await updateTask(id, {
+                                    description: currentDescription
+                                });
+                                if (updateTaskRes) setIsEditingDescription(false);
+                            })
+                        }
                         autoFocus
                         className="border bg-gray-100 border-gray-400 px-2 py-1 rounded w-full"
                     />
