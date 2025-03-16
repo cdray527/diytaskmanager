@@ -32,13 +32,20 @@ export class TaskController {
             type: 'object',
             properties: {
                 title: { type: 'string', example: 'New Task' },
-                description: { type: 'string', example: 'This is a new task' }
+                description: { type: 'string', example: 'This is a new task' },
+                statusId: { type: 'number', example: 1 }
             },
             required: ['title']
         }
     })
-    async createTask(@Body() postData: { title: string; description?: string }): Promise<Task> {
-        return this.taskService.createTask(postData.title, postData.description ?? '');
+    async createTask(
+        @Body() postData: { title: string; description?: string; statusId?: number }
+    ): Promise<Task> {
+        return this.taskService.createTask(
+            postData.title,
+            postData.description ?? '',
+            postData.statusId ?? 1
+        );
     }
 
     @Put(':id')

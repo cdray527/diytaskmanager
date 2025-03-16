@@ -16,7 +16,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export function Index({ tasks = [] }: ITasks) {
     return (
         <div>
-            <h1>Dashboard</h1>
             <TaskList tasks={tasks} />
         </div>
     );

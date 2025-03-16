@@ -34,7 +34,7 @@ export class TaskService {
         });
     }
 
-    async createTask(title: string, description: string): Promise<Task> {
+    async createTask(title: string, description: string, statusId: number): Promise<Task> {
         const hardcodedUser = await this.prisma.user.findUnique({
             where: { email: 'cdray085@hotmail.com' },
             select: { id: true }
@@ -48,10 +48,13 @@ export class TaskService {
             data: {
                 title,
                 description,
-                status: { connect: { id: 1 } },
+                status: { connect: { id: statusId } },
                 createdBy: {
                     connect: { id: hardcodedUser.id }
                 }
+            },
+            include: {
+                status: { select: { name: true } }
             }
         });
     }
