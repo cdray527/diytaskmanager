@@ -103,6 +103,6 @@ This project is a simple task management app. Users can create tasks, view all t
 │   │   ├── db/               # Database config
 ├── dockerconfig
 │   ├── docker-compose.yml    # Docker compose config
-├── workspace.json            # Nx workspace structure
+├── .env.example              # Put env here
 ├── package.json              # Dependencies & scripts
 ```
