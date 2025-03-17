@@ -8,7 +8,7 @@ function DashboardApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Dashboard</title>
+                <title>DIYTASKMANAGER</title>
             </Head>
             <main className="app">
                 <GlobalProvider>
