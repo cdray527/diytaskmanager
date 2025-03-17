@@ -9,18 +9,12 @@ volumes:
 services:
     diytaskmanager-dashboard:
         restart: always
-        image: cdray527/diytaskmanager-dashboard:latest
-        build:
-            context: ../
-            dockerfile: apps/frontend/dashboard/Dockerfile
-            target: production
+        image: ${AWS_ECR_FE_DASHBOARD}:latest
         container_name: diytaskmanager-dashboard
         depends_on:
             - diytaskmanager-api
         env_file:
             - ../.env
-        environment:
-            - NODE_ENV=production
         ports:
             - '4000:4000'
         networks:
@@ -28,18 +22,12 @@ services:
         command: ['npm', 'run', 'start']
     diytaskmanager-api:
         restart: always
-        image: cdray527/diytaskmanager-api:latest
-        build:
-            context: ../
-            dockerfile: apps/backend/api/Dockerfile
-            target: production
+        image: ${AWS_ECR_BE_API}:latest
         container_name: diytaskmanager-api
         depends_on:
             - diytaskmanager-postgresql
         env_file:
             - ../.env
-        environment:
-            - NODE_ENV=production
         ports:
             - '3000:3000'
         networks:

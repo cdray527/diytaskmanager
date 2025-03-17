@@ -34,31 +34,31 @@ jobs:
                   docker tag diytaskmanager-api:latest ${{ secrets.AWS_ECR_BE_API }}:latest
                   docker push ${{ secrets.AWS_ECR_BE_API }}:latest
 
-    # deploy:
-    #     needs: build-and-push
-    #     runs-on: ubuntu-latest
+    deploy:
+        needs: build-and-push
+        runs-on: ubuntu-latest
 
-    #     steps:
-    #         - name: Setup SSH Key
-    #           run: |
-    #               echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
-    #               chmod 600 key.pem
+        steps:
+            - name: Setup SSH Key
+              run: |
+                  echo "${{ secrets.EC2_SSH_KEY }}" > key.pem
+                  chmod 600 key.pem
 
-    #         - name: Deploy to EC2
-    #           run: |
-    #               ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-    #                 # Cleanup all dangling image
-    #                 docker system prune -af
+            - name: Deploy to EC2
+              run: |
+                  ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.EC2_USER }}@${{ vars.EC2_HOST }} << 'EOF'
+                    # Cleanup all dangling image
+                    docker system prune -af
 
-    #                 # Direct to config
-    #                 cd diytaskmanager/dockerconfig
+                    # Direct to config
+                    cd diytaskmanager/dockerconfig
 
-    #                 # Log in to AWS ECR
-    #                 aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_DIYCICD }}
+                    # Log in to AWS ECR
+                    aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_BE_API }}
 
-    #                 # Pull the latest backend image
-    #                 docker pull ${{ secrets.AWS_ECR_BE_API }}:latest
+                    # Pull the latest backend image
+                    docker pull ${{ secrets.AWS_ECR_BE_API }}:latest
 
-    #                 # Restart only backend services without affecting other services
-    #                 docker-compose -f docker-compose.prod.yml up -d --force-recreate diytaskmanager-api
-    #               EOF
+                    # Restart only backend services without affecting other services
+                    docker-compose -f docker-compose.prod.yml up -d --force-recreate diytaskmanager-api
+                  EOF
