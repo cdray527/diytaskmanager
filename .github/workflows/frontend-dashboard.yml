@@ -9,6 +9,10 @@ on:
             - 'apps/frontend/dashboard-e2e/**'
             - 'libs/frontend/**'
 
+env:
+    NEXT_PRIVATE_TASK_API_URL: ${{ vars.NEXT_PRIVATE_TASK_API_URL }}
+    NEXT_PUBLIC_TASK_API_URL: ${{ vars.NEXT_PUBLIC_TASK_API_URL }}
+
 jobs:
     build-and-push:
         runs-on: ubuntu-latest
