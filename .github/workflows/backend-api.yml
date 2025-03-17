@@ -22,17 +22,17 @@ jobs:
               with:
                   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-                  aws-region: ${{ variables.AWS_REGION }}
+                  aws-region: ${{ vars.AWS_REGION }}
 
             - name: Log in to Amazon ECR
               run: |
-                  aws ecr get-login-password --region ${{ variables.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_BE_API }}
+                  aws ecr get-login-password --region ${{ vars.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_BE_API }}
 
             - name: Build and Push BE-API Image
               run: |
                   docker build -t diytaskmanager-api -f Dockerfile.prod .
-                  docker tag diytaskmanager-api:latest ${{ variables.AWS_ECR_BE_API }}:latest
-                  docker push ${{ variables.AWS_ECR_BE_API }}:latest
+                  docker tag diytaskmanager-api:latest ${{ secrets.AWS_ECR_BE_API }}:latest
+                  docker push ${{ secrets.AWS_ECR_BE_API }}:latest
 
     # deploy:
     #     needs: build-and-push
