@@ -38,6 +38,7 @@ This project is a simple task management app. Users can create tasks, view all t
 ### Prerequisites:
 
 -   Node.js v22
+-   Docker compose
 
 ### Steps:
 
