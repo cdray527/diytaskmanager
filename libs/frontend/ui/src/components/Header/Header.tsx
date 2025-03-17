@@ -18,7 +18,7 @@ function Header() {
 
                     <h1 className="text-xl font-semibold text-left">
                         <a href="/" className="link link-hover">
-                            DIY TASK MANAGER
+                            DIYTASKMANAGER
                         </a>
                     </h1>
                 </div>
