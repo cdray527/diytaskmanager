@@ -21,7 +21,6 @@ services:
             - ../.env
         environment:
             - NODE_ENV=production
-            - API_URL=${API_URL}
         ports:
             - '4000:4000'
         networks:
