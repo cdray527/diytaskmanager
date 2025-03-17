@@ -8,7 +8,7 @@ function DashboardApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <Head>
-                <title>Dashboard</title>
+                <title>Dashboard~</title>
             </Head>
             <main className="app">
                 <GlobalProvider>
