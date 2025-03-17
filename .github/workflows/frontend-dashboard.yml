@@ -1,4 +1,4 @@
-name: diytaskmanager Frontend Dashboard Module CICD
+name: DIYTASKMANAGER Frontend Dashboard Module CICD
 
 on:
     push:

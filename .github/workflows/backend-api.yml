@@ -1,4 +1,4 @@
-name: diytaskmanager Backend API Module CICD
+name: DIYTASKMANAGER Backend API Module CICD
 
 on:
     push:
