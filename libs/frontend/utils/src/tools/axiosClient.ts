@@ -17,6 +17,8 @@ const createAxiosClient = (serviceName: ApiServiceName) => {
         ? apiServiceUrlMapper[serviceName].SSR
         : apiServiceUrlMapper[serviceName].CSR;
 
+    console.log(baseURL);
+
     return axios.create({
         baseURL,
         headers: {
