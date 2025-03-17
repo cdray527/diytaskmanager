@@ -30,7 +30,7 @@ jobs:
 
             - name: Build and Push BE-API Image
               run: |
-                  docker build -t diytaskmanager-api -f Dockerfile.prod .
+                  docker build -t diytaskmanager-api -f apps/backend/api/Dockerfile .
                   docker tag diytaskmanager-api:latest ${{ secrets.AWS_ECR_BE_API }}:latest
                   docker push ${{ secrets.AWS_ECR_BE_API }}:latest
 

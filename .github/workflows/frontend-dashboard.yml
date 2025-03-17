@@ -30,8 +30,8 @@ jobs:
 
             - name: Build and Push FE-DASHBOARD Image
               run: |
-                  docker build -t diytaskmanager-api -f Dockerfile.prod .
-                  docker tag diytaskmanager-api:latest ${{ secrets.AWS_ECR_FE_DASHBOARD }}:latest
+                  docker build -t diytaskmanager-dashboard -f apps/frontend/dashboard/Dockerfile .
+                  docker tag diytaskmanager-dashboard:latest ${{ secrets.AWS_ECR_FE_DASHBOARD }}:latest
                   docker push ${{ secrets.AWS_ECR_FE_DASHBOARD }}:latest
 
     # deploy:
@@ -60,5 +60,5 @@ jobs:
     #                 docker pull ${{ secrets.AWS_ECR_FE_DASHBOARD }}:latest
 
     #                 # Restart only backend services without affecting other services
-    #                 docker-compose -f docker-compose.prod.yml up -d --force-recreate diytaskmanager-api
+    #                 docker-compose -f docker-compose.prod.yml up -d --force-recreate diytaskmanager-dashboard
     #               EOF
