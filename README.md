@@ -1,110 +1,107 @@
 # Diytaskmanager
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This project is a simple task management app. Users can create tasks, view all tasks, edit tasks, and remove tasks.
+![Task Dashboard](https://snipboard.io/ytzn5X.jpg)
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Key Features:
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+-   **RESTful API** for managing tasks
+-   **Swagger Docs** for API reference
+-   **Responsive UI**
+-   **Manageable Monorepo** with NX powerful features like dependency graph and a single root `package.json` for efficient dependency management
+-   **Dockerized setup** for consistent development within teams & easy deployment
+-   **Separate CI/CD pipelines** for the frontend and backend
+-   **Hosted on AWS EC2**
 
-## Generate a library
+## Tech Stack
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+**Workspace**: NX Monorepo
+
+**Backend**:
+
+-   Node NestJS
+-   Prisma ORM
+-   Swagger Docs
+
+**Frontend**:
+
+-   React Next.js
+-   TailwindCSS
+-   DaisyUI
+
+**Database**:
+
+-   PostgreSQL
+
+## Running Locally
+
+### Prerequisites:
+
+-   Node.js v22
+
+### Steps:
+
+1. **Clone the repository:**
+    ```sh
+    git clone https://github.com/your-repo/diytaskmanager.git
+    cd diytaskmanager
+    ```
+2. **Create a `.env` file** (refer to `.env.example`).
+3. **Start services with Docker Compose:**
+
+    ```sh
+    docker-compose -f dockerconfig/docker-compose.dev.yml up -d
+    ```
+
+    **(Run Locally for the First Time)**
+
+    ```sh
+    docker exec -it diytaskmanager-api sh
+
+    # Init database
+    npx prisma migrate dev --name init
+
+    # Seed default data
+    npx tsx libs/backend/db/pr
+
+    exit
+
+    docker-compose -f dockerconfig/docker-compose.dev.yml down
+    docker-compose -f dockerconfig/docker-compose.dev.yml up -d
+    ```
+
+4. **Access the application:**
+
+**Access locally**
+
+    - Swagger Docs: http://localhost:3000/docs
+    - Task API: http://localhost:3000/task
+    - Dashboard App: http://localhost:4000
+
+**Access the deployed application on EC2**
+
+-   [http://18.141.192.252:4000/](http://18.141.192.252:4000/)
+
+## Project Structure
+
 ```
-
-## Run tasks
-
-To build the library use:
-
-```sh
-npx nx build pkg1
+📦 diytaskmanager
+├── apps
+│   ├── frontend
+│   │   ├── dashboard/        # Next.js Dashboard App
+│   │   ├── dashboard-e2e/    # E2E tests for Dashboard
+│   ├── backend
+│   │   ├── api/              # NestJS API
+│   │   ├── api-e2e/          # E2E tests for API
+├── libs
+│   ├── frontend
+│   │   ├── ui/               # Shared UI components
+│   │   ├── utils/            # typescript interface, custom hooks, tools etc...
+│   │   ├── services/         # API calls
+│   ├── backend
+│   │   ├── db/               # Database config
+├── dockerconfig
+│   ├── docker-compose.yml    # Docker compose config
+├── workspace.json            # Nx workspace structure
+├── package.json              # Dependencies & scripts
 ```
-
-To run any task with Nx use:
-
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
-
-```
-npx nx release
-```
-
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
--   [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
--   [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
--   [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
--   [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
--   [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
--   [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
--   [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
--   [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-
--   [Discord](https://go.nx.dev/community)
--   [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
--   [Our Youtube channel](https://www.youtube.com/@nxdevtools)
--   [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)

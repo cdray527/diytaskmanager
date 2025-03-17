@@ -5,8 +5,8 @@ networks:
 volumes:
     diytaskmanager-postgresql-data:
         driver: local
-    diytaskmanager-node-modules:
-        driver: local
+    # diytaskmanager-node-modules:
+    #     driver: local
 
 services:
     diytaskmanager-dashboard:
@@ -25,7 +25,7 @@ services:
             - '4000:4000'
         volumes:
             - ../:/app
-            - diytaskmanager-node-modules:/app/node_modules
+            - /app/node_modules
         networks:
             - diytaskmanager-network
         command: ['npm', 'run', 'dev:dashboard']
@@ -46,7 +46,7 @@ services:
             - '5555:5555'
         volumes:
             - ../:/app
-            - diytaskmanager-node-modules:/app/node_modules
+            - /app/node_modules
         networks:
             - diytaskmanager-network
         command: ['sh', '-c', 'npx prisma generate && npm run dev:api']
