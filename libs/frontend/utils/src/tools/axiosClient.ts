@@ -5,8 +5,8 @@ type ApiServiceName = 'task';
 
 const apiServiceUrlMapper: Record<ApiServiceName, { SSR: string; CSR: string }> = {
     task: {
-        SSR: `${process.env.NEXT_PRIVATE_TASK_API_URL}`,
-        CSR: `${process.env.NEXT_PUBLIC_TASK_API_URL}` || 'http://18.141.192.252:3000'
+        SSR: process.env.NEXT_PRIVATE_TASK_API_URL ?? '',
+        CSR: process.env.NEXT_PUBLIC_TASK_API_URL ?? 'http://18.141.192.252:3000'
     }
 };
 
