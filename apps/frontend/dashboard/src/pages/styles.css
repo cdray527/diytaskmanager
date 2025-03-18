@@ -13,7 +13,7 @@ html {
 }
 
 body {
-    background-color: var(--root-bg, var(--color-base-100));
+    background-color: #1c232a;
     font-size: 17px;
     color: #fff;
     height: 100vh;
